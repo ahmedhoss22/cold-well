@@ -68,6 +68,7 @@ export default function CreateProperty() {
     handleSubmit,
     watch,
     control,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: joiResolver(schema),
@@ -173,6 +174,9 @@ export default function CreateProperty() {
           'Content-Type': 'multipart/form-data',
         },
       })
+      reset()
+      setImages([])
+      setThumbnail(null)
       toast.update(loadingToastId, {
         render: 'Successfully Created!',
         type: 'success',

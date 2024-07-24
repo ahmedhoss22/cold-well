@@ -26,6 +26,7 @@ export default function CreateType() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: joiResolver(schema),
@@ -37,6 +38,7 @@ export default function CreateType() {
     try {
       setButtonLoading(true)
       await Api.post('/type/create', data)
+      reset()
       notifySuccess()
     
       setTimeout(() => {

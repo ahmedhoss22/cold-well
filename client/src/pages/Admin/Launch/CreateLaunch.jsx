@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
-import { joiResolver } from "@hookform/resolvers/joi";
-import Joi from "joi";
+import React, { useEffect, useState } from 'react'
+import { useForm, Controller } from 'react-hook-form'
+import { joiResolver } from '@hookform/resolvers/joi'
+import Joi from 'joi'
 import {
   Container,
   Form,
@@ -10,20 +10,19 @@ import {
   Col,
   ToggleButtonGroup,
   ToggleButton,
-} from "react-bootstrap";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+} from 'react-bootstrap'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 
-import Api from "../../../Api/ApiCalls";;
-import { notify } from "../../../components/Admin/Toaster";
-import { ImageUploader, MapPicker } from "../../../components/Admin";
+import Api from '../../../Api/ApiCalls'
+import { notify } from '../../../components/Admin/Toaster'
+import { ImageUploader, MapPicker } from '../../../components/Admin'
 
 // Joi validation schema
 const schema = Joi.object({
-
   developer: Joi.string().hex().length(24).required().messages({
-    "string.empty": "Developer is required",
-    "string.length": "Developer ID must be 24 characters long",
+    'string.empty': 'Developer is required',
+    'string.length': 'Developer ID must be 24 characters long',
   }),
 
   launchDetails: Joi.object({
@@ -33,10 +32,10 @@ const schema = Joi.object({
 
   launchName: Joi.object({
     en: Joi.string().required().messages({
-      "string.empty": "Launch Name (English) is required",
+      'string.empty': 'Launch Name (English) is required',
     }),
     ar: Joi.string().required().messages({
-      "string.empty": "Launch Name (Arabic) is required",
+      'string.empty': 'Launch Name (Arabic) is required',
     }),
   }).required(),
 
@@ -46,10 +45,10 @@ const schema = Joi.object({
       ar: Joi.string().optional(),
     }).optional(),
     latitude: Joi.number().required().messages({
-      "number.base": "Latitude is required",
+      'number.base': 'Latitude is required',
     }),
     longitude: Joi.number().required().messages({
-      "number.base": "Longitude is required",
+      'number.base': 'Longitude is required',
     }),
   }).required(),
 
@@ -57,7 +56,7 @@ const schema = Joi.object({
     en: Joi.string().optional(),
     ar: Joi.string().optional(),
   }).optional(),
-});
+})
 
 export default function CreateLaunch() {
   const {
@@ -65,80 +64,84 @@ export default function CreateLaunch() {
     handleSubmit,
     control,
     setValue,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: joiResolver(schema),
-  });
+  })
 
-  const [video, setVideo] = useState([]);
-  const [thumbnailFiles, setThumbnailFiles] = useState([]);
-  const [useRichTextEditor, setUseRichTextEditor] = useState(true);
-  const [useRichTextEditor2, setUseRichTextEditor2] = useState(true);
+  const [video, setVideo] = useState([])
+  const [thumbnailFiles, setThumbnailFiles] = useState([])
+  const [useRichTextEditor, setUseRichTextEditor] = useState(true)
+  const [useRichTextEditor2, setUseRichTextEditor2] = useState(true)
 
   const handleVideoFilesSelect = (files) => {
-    setVideo(files);
-  };
+    setVideo(files)
+  }
 
   const handleThumbnailFilesSelect = (files) => {
-    setThumbnailFiles(files);
-  };
-  const [developers, setDevelopers] = useState([]);
+    setThumbnailFiles(files)
+  }
+  const [developers, setDevelopers] = useState([])
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const developer = await Api.get("/developer/get-names");
-        setDevelopers(developer.data.data);
+        const developer = await Api.get('/developer/get-names')
+        setDevelopers(developer.data.data)
       } catch (error) {
-        console.error("Error fetching areas:", error);
+        console.error('Error fetching areas:', error)
       }
-    };
+    }
 
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
-  const [useMap, setUseMap] = useState(true);
+  const [useMap, setUseMap] = useState(true)
   const [mapLocation, setMapLocation] = useState({
     longitude: 31.23586166241668,
     latitude: 30.04426189357251,
     zoom: 5,
-  });
+  })
 
   const handleLocationSelect = ({ latitude, longitude }) => {
-    setValue("location.latitude", latitude);
-    setValue("location.longitude", longitude);
-    setMapLocation((prevState) => ({ ...prevState, latitude, longitude }));
-  };
+    setValue('location.latitude', latitude)
+    setValue('location.longitude', longitude)
+    setMapLocation((prevState) => ({ ...prevState, latitude, longitude }))
+  }
 
   const onSubmit = async (data) => {
-    const formData= new FormData()
+    const formData = new FormData()
 
-    formData.append("launchName[ar]", data.launchName.ar);
-    formData.append("launchName[en]", data.launchName.en);
-    formData.append("location[latitude]", data.location.latitude);
-    formData.append("location[longitude]", data.location.longitude);
-    formData.append("location[name][en]", data.location.name.en);
-    formData.append("location[name][ar]", data.location.name.ar);
-    formData.append("description[en]", data.description.en);
-    formData.append("description[ar]", data.description.ar);
-    formData.append("launchDetails[en]", data.launchDetails.en);
-    formData.append("launchDetails[ar]", data.launchDetails.ar);
-    if (data.developer){
-      formData.append("developer[0]", data.developer);
+    formData.append('launchName[ar]', data.launchName.ar)
+    formData.append('launchName[en]', data.launchName.en)
+    formData.append('location[latitude]', data.location.latitude)
+    formData.append('location[longitude]', data.location.longitude)
+    formData.append('location[name][en]', data.location.name.en)
+    formData.append('location[name][ar]', data.location.name.ar)
+    formData.append('description[en]', data.description.en)
+    formData.append('description[ar]', data.description.ar)
+    formData.append('launchDetails[en]', data.launchDetails.en)
+    formData.append('launchDetails[ar]', data.launchDetails.ar)
+    if (data.developer) {
+      formData.append('developer[0]', data.developer)
     }
-    video.forEach((image) => formData.append("video", image));
-    if (thumbnailFiles) formData.append("thumbnail", thumbnailFiles[0]);
+    video.forEach((image) => formData.append('video', image))
+    if (thumbnailFiles) formData.append('thumbnail', thumbnailFiles[0])
 
     try {
-      const response = await Api.post("/launch/create", formData, {
+      const response = await Api.post('/launch/create', formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
-      });
-      notify();
+      })
+      reset()
+      setVideo([])
+      setThumbnailFiles([])
+      notify()
     } catch (error) {
-      console.error("Form submission error:", error);
+      console.error('Form submission error:', error)
     }
-  };
+  }
 
   return (
     <Container>
@@ -150,7 +153,7 @@ export default function CreateLaunch() {
               <Form.Label>Launch Name (English)</Form.Label>
               <Form.Control
                 type="text"
-                {...register("launchName.en")}
+                {...register('launchName.en')}
                 isInvalid={!!errors.launchName?.en}
               />
               <Form.Control.Feedback type="invalid">
@@ -163,7 +166,7 @@ export default function CreateLaunch() {
               <Form.Label>Launch Name (Arabic)</Form.Label>
               <Form.Control
                 type="text"
-                {...register("launchName.ar")}
+                {...register('launchName.ar')}
                 isInvalid={!!errors.launchName?.ar}
               />
               <Form.Control.Feedback type="invalid">
@@ -178,7 +181,7 @@ export default function CreateLaunch() {
               <Form.Label>Developer</Form.Label>
               <Form.Control
                 as="select"
-                {...register("developer")}
+                {...register('developer')}
                 isInvalid={!!errors.developer}
               >
                 <option value="">Select Developer</option>
@@ -200,7 +203,7 @@ export default function CreateLaunch() {
               <Form.Label>Location Name (English)</Form.Label>
               <Form.Control
                 type="text"
-                {...register("location.name.en")}
+                {...register('location.name.en')}
                 isInvalid={!!errors.location?.name?.en}
               />
               <Form.Control.Feedback type="invalid">
@@ -213,7 +216,7 @@ export default function CreateLaunch() {
               <Form.Label>Location Name (Arabic)</Form.Label>
               <Form.Control
                 type="text"
-                {...register("location.name.ar")}
+                {...register('location.name.ar')}
                 isInvalid={!!errors.location?.name?.ar}
               />
               <Form.Control.Feedback type="invalid">
@@ -224,33 +227,33 @@ export default function CreateLaunch() {
         </Row>
 
         <Row>
-        <Form.Group className="mt-3">
-          <ToggleButtonGroup
-            type="radio"
-            name="richTextEditorOptions"
-            defaultValue={useRichTextEditor ? 1 : 2}
-            className="mb-3 row d-flex"
-          >
-            <ToggleButton
-              id="tbg-radio-1"
-              value={1}
-              variant="outline-primary"
-              onClick={() => setUseRichTextEditor(true)}
-              className={`px-4 col-6 py-2 ${useRichTextEditor ? "active" : ""}`}
+          <Form.Group className="mt-3">
+            <ToggleButtonGroup
+              type="radio"
+              name="richTextEditorOptions"
+              defaultValue={useRichTextEditor ? 1 : 2}
+              className="mb-3 row d-flex"
             >
-              Enable Text Editor
-            </ToggleButton>
-            <ToggleButton
-              id="tbg-radio-2"
-              value={2}
-              variant="outline-secondary"
-              onClick={() => setUseRichTextEditor(false)}
-              className={`px-4 col-6 py-2 ${!useRichTextEditor ? "active" : ""}`}
-            >
-              Disable Text Editor
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </Form.Group>
+              <ToggleButton
+                id="tbg-radio-1"
+                value={1}
+                variant="outline-primary"
+                onClick={() => setUseRichTextEditor(true)}
+                className={`px-4 col-6 py-2 ${useRichTextEditor ? 'active' : ''}`}
+              >
+                Enable Text Editor
+              </ToggleButton>
+              <ToggleButton
+                id="tbg-radio-2"
+                value={2}
+                variant="outline-secondary"
+                onClick={() => setUseRichTextEditor(false)}
+                className={`px-4 col-6 py-2 ${!useRichTextEditor ? 'active' : ''}`}
+              >
+                Disable Text Editor
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Form.Group>
           <Col md={6}>
             <Form.Group className="mb-3">
               <Form.Label>Launch Details (English)</Form.Label>
@@ -261,7 +264,7 @@ export default function CreateLaunch() {
                   useRichTextEditor ? (
                     <ReactQuill
                       theme="snow"
-                      value={field.value || ""}
+                      value={field.value || ''}
                       onChange={field.onChange}
                       onBlur={field.onBlur}
                     />
@@ -290,7 +293,7 @@ export default function CreateLaunch() {
                   useRichTextEditor ? (
                     <ReactQuill
                       theme="snow"
-                      value={field.value || ""}
+                      value={field.value || ''}
                       onChange={field.onChange}
                       onBlur={field.onBlur}
                     />
@@ -310,37 +313,36 @@ export default function CreateLaunch() {
             </Form.Group>
           </Col>
         </Row>
-       
-        <Row>
-        <Form.Group className="mt-3">
-          <ToggleButtonGroup
-            type="radio"
-            name="locationOptions"
-            defaultValue={useMap ? 3 : 4}
-            className="row d-flex px-2"
-          >
-            <ToggleButton
-              id="tbg-radio-3"
-              value={3}
-              variant="outline-primary"
-              onClick={() => setUseMap(true)}
-              className={`px-4 col-6  py-2 ${useMap ? "active" : ""}`}
-            >
-              Map
-            </ToggleButton>
-            <ToggleButton
-              id="tbg-radio-4"
-              value={4}
-              onClick={() => setUseMap(false)}
-              variant="outline-secondary"
-              className={`px-4 col-6 py-2 ${!useMap ? "active" : ""}`}
-            >
-            Coordinates
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </Form.Group>
-          <Form.Group className="my-3">
 
+        <Row>
+          <Form.Group className="mt-3">
+            <ToggleButtonGroup
+              type="radio"
+              name="locationOptions"
+              defaultValue={useMap ? 3 : 4}
+              className="row d-flex px-2"
+            >
+              <ToggleButton
+                id="tbg-radio-3"
+                value={3}
+                variant="outline-primary"
+                onClick={() => setUseMap(true)}
+                className={`px-4 col-6  py-2 ${useMap ? 'active' : ''}`}
+              >
+                Map
+              </ToggleButton>
+              <ToggleButton
+                id="tbg-radio-4"
+                value={4}
+                onClick={() => setUseMap(false)}
+                variant="outline-secondary"
+                className={`px-4 col-6 py-2 ${!useMap ? 'active' : ''}`}
+              >
+                Coordinates
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Form.Group>
+          <Form.Group className="my-3">
             {useMap ? (
               <MapPicker
                 initialViewport={mapLocation}
@@ -354,7 +356,7 @@ export default function CreateLaunch() {
                     <Form.Control
                       type="number"
                       step="any"
-                      {...register("location.latitude")}
+                      {...register('location.latitude')}
                       isInvalid={!!errors.location?.latitude}
                     />
                     <Form.Control.Feedback type="invalid">
@@ -368,7 +370,7 @@ export default function CreateLaunch() {
                     <Form.Control
                       type="number"
                       step="any"
-                      {...register("location.longitude")}
+                      {...register('location.longitude')}
                       isInvalid={!!errors.location?.longitude}
                     />
                     <Form.Control.Feedback type="invalid">
@@ -382,33 +384,33 @@ export default function CreateLaunch() {
         </Row>
 
         <Row>
-        <Form.Group className="mt-3">
-          <ToggleButtonGroup
-            type="radio"
-            name="richTextEditorOptions"
-            defaultValue={useRichTextEditor ? 1 : 2}
-            className="mb-3 row d-flex"
-          >
-            <ToggleButton
-              id="tbg-radio-5"
-              value={5}
-              variant="outline-primary"
-              onClick={() => setUseRichTextEditor2(true)}
-              className={`px-4 col-6 py-2 ${useRichTextEditor2 ? "active" : ""}`}
+          <Form.Group className="mt-3">
+            <ToggleButtonGroup
+              type="radio"
+              name="richTextEditorOptions"
+              defaultValue={useRichTextEditor ? 1 : 2}
+              className="mb-3 row d-flex"
             >
-              Enable Text Editor
-            </ToggleButton>
-            <ToggleButton
-              id="tbg-radio-6"
-              value={6}
-              variant="outline-secondary"
-              onClick={() => setUseRichTextEditor2(false)}
-              className={`px-4 col-6 py-2 ${!useRichTextEditor2 ? "active" : ""}`}
-            >
-              Disable Text Editor
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </Form.Group>
+              <ToggleButton
+                id="tbg-radio-5"
+                value={5}
+                variant="outline-primary"
+                onClick={() => setUseRichTextEditor2(true)}
+                className={`px-4 col-6 py-2 ${useRichTextEditor2 ? 'active' : ''}`}
+              >
+                Enable Text Editor
+              </ToggleButton>
+              <ToggleButton
+                id="tbg-radio-6"
+                value={6}
+                variant="outline-secondary"
+                onClick={() => setUseRichTextEditor2(false)}
+                className={`px-4 col-6 py-2 ${!useRichTextEditor2 ? 'active' : ''}`}
+              >
+                Disable Text Editor
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Form.Group>
           <Col md={6}>
             <Form.Group className="mb-3">
               <Form.Label>Launch Description (English)</Form.Label>
@@ -419,7 +421,7 @@ export default function CreateLaunch() {
                   useRichTextEditor2 ? (
                     <ReactQuill
                       theme="snow"
-                      value={field.value || ""}
+                      value={field.value || ''}
                       onChange={field.onChange}
                       onBlur={field.onBlur}
                     />
@@ -448,7 +450,7 @@ export default function CreateLaunch() {
                   useRichTextEditor2 ? (
                     <ReactQuill
                       theme="snow"
-                      value={field.value || ""}
+                      value={field.value || ''}
                       onChange={field.onChange}
                       onBlur={field.onBlur}
                     />
@@ -491,5 +493,5 @@ export default function CreateLaunch() {
         </Button>
       </Form>
     </Container>
-  );
+  )
 }

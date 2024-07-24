@@ -64,6 +64,7 @@ export default function CreateCompound() {
     handleSubmit,
     watch,
     setValue,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: joiResolver(compoundSchema),
@@ -132,6 +133,9 @@ export default function CreateCompound() {
           'Content-Type': 'multipart/form-data',
         },
       })
+      reset()
+      setThumbnail(null)
+      setImages(null)
       notifySuccess()
     } catch (error) {
       notifyError()

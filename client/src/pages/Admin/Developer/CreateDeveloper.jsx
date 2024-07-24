@@ -47,6 +47,7 @@ export default function CreateDeveloper() {
     handleSubmit,
     control,
     setValue,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: joiResolver(schema),
@@ -85,6 +86,8 @@ export default function CreateDeveloper() {
           'Content-Type': 'multipart/form-data',
         },
       })
+      reset()
+      setDeveloperImages(null)
       notifySuccess()
     } catch (error) {
       notifyError()

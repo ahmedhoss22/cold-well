@@ -45,6 +45,7 @@ export default function CreateOffer() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: joiResolver(schema),
@@ -71,7 +72,7 @@ export default function CreateOffer() {
     setButtonLoading(true)
     try {
       await Api.post("/offers/create-new", data);
-      
+      reset()
       notifySuccess("Successfully Created!")
     } catch (error) {
       notifyError("Failed to Create")

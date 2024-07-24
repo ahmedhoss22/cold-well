@@ -45,6 +45,7 @@ export default function CreateArea() {
     handleSubmit,
     setValue,
     watch,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: joiResolver(schema),
@@ -56,7 +57,6 @@ export default function CreateArea() {
   const [areaImages, setAreaImages] = useState(null)
   const handleFilesSelect = (files) => {
     setAreaImages(files)
-
   }
   const onSubmit = async (data) => {
     setLoading(true)
@@ -67,6 +67,8 @@ export default function CreateArea() {
           'Content-Type': 'multipart/form-data',
         },
       })
+      reset()
+      setAreaImages(null)
       notifySuccess()
     } catch (error) {
       notifyError()
