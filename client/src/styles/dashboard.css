@@ -1,0 +1,104 @@
+@import url('https://fonts.cdnfonts.com/css/geometos');
+@import url('https://fonts.cdnfonts.com/css/libertinus-mono');
+
+@import url('https://fonts.cdnfonts.com/css/open-sans');
+@import url('https://fonts.cdnfonts.com/css/bein-black');
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --primary-blue: #01216a;
+  --primary-black: #000000;
+  --primary-white: #ffff;
+  --secondary-blue: #418fde;
+  --secondary-black: #2d2926;
+  --secondary-gray: #63666a;
+  line-height: 1.5;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #f8f8f8;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  background-color: #f8f8f8 !important;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+.accordion-item:first-of-type > .accordion-header .accordion-button,
+.accordion-item:first-of-type,
+.accordion-item:last-of-type > .accordion-header .accordion-button,
+.accordion-item:last-of-type {
+  border-radius: 0% !important;
+}
+.accordion-button {
+  border-radius: 0% !important;
+  padding: 18px !important;
+}
+.accordion-body {
+  padding-top: 0 !important;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow: none !important;
+}
+.accordion-header button:active:focus {
+  border: none;
+  box-shadow: none;
+}
+.accordion-button:focus {
+  border-radius: 0% !important;
+  box-shadow: none !important;
+}
+.accordion-item:last-of-type > .accordion-header .accordion-button.collapsed {
+}
+/* DashboardLayout.css */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.sidebar {
+  padding: 0;
+  position: sticky;
+  height: calc(100vh - 58px);
+  /* padding-top: 20px; */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+@media (max-width: 767.98px) {
+    .sidebar {
+     /* width: 100vw; */
+    }
+  }
