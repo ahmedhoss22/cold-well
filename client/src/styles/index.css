@@ -395,11 +395,11 @@ p {
 .navbar-custom.white-bg .navbar-brand {
   color: var(--primary-blue) !important;
 }
-.navbar-custom.transparent .navbar-collapse.collapse.show .nav-link{
-color: #000000 !important;
+.navbar-custom.transparent .navbar-collapse.collapse.show .nav-link {
+  color: #000000 !important;
 }
-.navbar-custom.transparent .navbar-collapse.collapse.show .nav-link.active{
-color: var(--secondary-blue) !important;
+.navbar-custom.transparent .navbar-collapse.collapse.show .nav-link.active {
+  color: var(--secondary-blue) !important;
 }
 
 /* Custom Navbar */
@@ -1662,7 +1662,7 @@ a:focus-visible {
     height: 250px;
   }
   .sahel-map {
-    height: 140px;
+    height: 120px;
   }
 }
 .offer {
@@ -1714,7 +1714,7 @@ a:focus-visible {
   height: 151px;
 }
 @media screen and (max-width: 768px) {
-  .special-offer{
+  .special-offer {
     min-width: 250px;
     height: 120px;
   }

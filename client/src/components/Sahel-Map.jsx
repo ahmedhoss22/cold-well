@@ -23,7 +23,7 @@ export default function SahelMap() {
         <Link draggable="false">
           <Img
             image={{ src: imagePath, width: '100%', height: '100%' , alt:"sahel-map" }}
-            className="sahel-map  object-fit-cover rounded-2 sahel-map"
+            className="object-fit-cover rounded-2 sahel-map"
             style={{ overflow: 'hidden', cursor: "pointer" }}
             onClick={handleDownload}
           />
