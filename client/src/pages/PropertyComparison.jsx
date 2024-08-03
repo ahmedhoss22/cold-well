@@ -16,16 +16,18 @@ export default function ComparisonPage() {
     const storedPropertyIds = JSON.parse(
       localStorage.getItem('comparisonProperties')
     )
+    console.log(storedPropertyIds);
     if (!storedPropertyIds || storedPropertyIds.length < 2) {
       navigate('/')
     } else {
       const loadProperties = async () => {
         try {
           const data = await FetchPropertyToCompare(storedPropertyIds)
- 
+
           setProperties(data)
+          localStorage.removeItem("comparisonProperties")
         } catch (error) {
-console.log("error to get units data");
+          console.log('error to get units data')
         }
       }
       loadProperties()
@@ -44,8 +46,8 @@ console.log("error to get units data");
   }
 
   return (
-    <Container className=" my-5">
-      <h2 className=" sup-title">{t('compare.title')}</h2>
+    <Container className=" my-5" style={{marginTop:"70px"}}>
+      <h2 className=" sup-title ">{t('compare.title')}</h2>
       {properties.length === 2 && (
         <div className=" table-responsive">
           <Table striped bordered hover responsive>
