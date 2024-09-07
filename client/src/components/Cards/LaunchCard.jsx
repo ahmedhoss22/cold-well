@@ -16,7 +16,7 @@ const LaunchCard = ({ item }) => {
   };
  
   return (
-    <Link className="launch-card" to={`/launch-details/${item._id}`}>
+    <Link className="launch-card" to={`launch-details/${item._id}`}>
       <Img image={imageProps} className=" rounded-2"/>
     </Link>
   );

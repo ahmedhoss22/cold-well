@@ -3,12 +3,11 @@ import { FetchLatestLaunches } from '../Api/ApiCalls'
 import { useTranslation } from 'react-i18next'
 import Carousel from './Common/Carousel'
 import LaunchCard from './Cards/LaunchCard'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function HomeLunch() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [lunch, setLunch] = useState([])
-
   const [error, setError] = useState(null)
 
   const fetchData = useCallback(async () => {
@@ -25,6 +24,7 @@ export default function HomeLunch() {
 
   if (error) return <div>{t('error.loadingData')}</div>
 
+  const link = `/${i18n.language}/all-launches`
   return (
     <section className="container-xxl section-padding">
       <div className="container p-2">
@@ -32,7 +32,7 @@ export default function HomeLunch() {
           <h2 className=" sup-title">{t('titles.newLaunches')}</h2>
           <div>
             {lunch && lunch?.length > 5 && (
-              <Link to="all-launches">{t('showMore')}</Link>
+              <Link to={link}>{t('showMore')}</Link>
             )}
           </div>
         </div>

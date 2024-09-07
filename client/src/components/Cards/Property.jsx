@@ -103,43 +103,45 @@ const Property = ({ item }) => {
   const baseText = `Hello ${developer.name[i18n.language]}! I'm interested in your property ${item.name[i18n.language]}. `
   const encodedBaseText = encodeURIComponent(baseText)
   const whatsappLink = `https://wa.me/${item?.contactUs}?text=${encodedBaseText} with reference_No:   ${item?.reference_No}`
-
+  const link = `/${i18n.language}/property-details/${item._id}`
+  const developerlink = `/${i18n.language}/developer-details/${developer._id}`
   return (
     <div className="custom-property-unit bg-white rounded-2" dir={i18n.dir()}>
-      <Link
-        to={`property-details/${item._id}`}
-        className="custom-property-image position-relative"
-        style={{ cursor: 'pointer' }}
-      >
+      <Link to={link}>
         <div
-          className="z-3 p-2 position-absolute top-0 w-100 start-0 d-flex justify-content-end"
-          style={{ borderRadius: '10px' }}
+          className="custom-property-image position-relative"
+          style={{ cursor: 'pointer' }}
         >
-          <div className="position-relative w-100">
-            {item.featured && (
-              <span className="custom-type position-absolute top-0 start-0 custom-type-featured p-1 rounded-4">
-                {t('featured')}
-              </span>
-            )}
-            {saleStatus && (
-              <span className="custom-type position-absolute top-0 end-0 custom-type-sale p-1 rounded-4">
-                {saleStatus}
-              </span>
-            )}
+          <div
+            className="z-3 p-2 position-absolute top-0 w-100 start-0 d-flex justify-content-end"
+            style={{ borderRadius: '10px' }}
+          >
+            <div className="position-relative w-100">
+              {item.featured && (
+                <span className="custom-type position-absolute top-0 start-0 custom-type-featured p-1 rounded-4">
+                  {t('featured')}
+                </span>
+              )}
+              {saleStatus && (
+                <span className="custom-type position-absolute top-0 end-0 custom-type-sale p-1 rounded-4">
+                  {saleStatus}
+                </span>
+              )}
+            </div>
           </div>
+          <Img className="custom-property-thumbnail" image={itemImageProps} />
+          {developer && (
+            <span className="position-absolute custom-developer-logo border-0">
+              <Link to={developerlink}>
+                <Img
+                  className="w-100 h-100 rounded-circle border-0"
+                  image={developerImageProps}
+                  // scrollPosition={scrollPosition}
+                />
+              </Link>
+            </span>
+          )}
         </div>
-        <Img className="custom-property-thumbnail" image={itemImageProps} />
-        {developer && (
-          <span className="position-absolute custom-developer-logo border-0">
-            <Link to={`developer-details/${developer?._id}`}>
-              <Img
-                className="w-100 h-100 rounded-circle border-0"
-                image={developerImageProps}
-                // scrollPosition={scrollPosition}
-              />
-            </Link>
-          </span>
-        )}
       </Link>
       <div className="custom-property-unit-information-wrapper p-2">
         <p className="custom-property-unit_description mb-1">
@@ -147,7 +149,7 @@ const Property = ({ item }) => {
         </p>
         <Link
           className="custom-property-unit_name"
-          to={`/property-details/${item._id}`}
+          to={link}
         >
           <h3>{firstTwoWords}</h3>
         </Link>
