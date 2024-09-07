@@ -32,7 +32,7 @@ export default function HomeLunch() {
           <h2 className=" sup-title">{t('titles.newLaunches')}</h2>
           <div>
             {lunch && lunch?.length > 5 && (
-              <Link to="/all-launches">{t('showMore')}</Link>
+              <Link to="all-launches">{t('showMore')}</Link>
             )}
           </div>
         </div>

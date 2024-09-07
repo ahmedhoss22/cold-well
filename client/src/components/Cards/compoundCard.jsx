@@ -22,7 +22,7 @@ const CompoundCard = ({ item}) => {
   
   return (
     <div className="compound-card d-inline-block position-relative">
-      <Link to={`/compound-details/${item._id}`}>
+      <Link to={`compound-details/${item._id}`}>
         <Img
           className="object-fit-cover rounded-2"
           image={imageProps}

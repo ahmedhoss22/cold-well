@@ -3,43 +3,36 @@ import { Globe } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import React, { useEffect, useState } from 'react'
 import Img from './Img'
+import { useLanguageRoute } from '../App/changeLang'
 
 export default function Nav() {
-  const [scrolled, setScrolled] = useState(false);
-  const location = useLocation();
+  const [scrolled, setScrolled] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
-        setScrolled(true);
+        setScrolled(true)
       } else {
-        setScrolled(false);
+        setScrolled(false)
       }
-    };
+    }
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll)
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
-  const currentLang = location.pathname.split('/')[1]
+  const { changeLanguage } = useLanguageRoute()
+
   const toggleLanguage = () => {
     const newLang = i18n.language === 'en' ? 'ar' : 'en'
-    i18n.changeLanguage(newLang)
-    const direction = newLang === 'ar' ? 'rtl' : 'ltr'
-    document.documentElement.setAttribute('dir', direction)
-    document.documentElement.setAttribute('lang', newLang)
-
-    const newPathname = `/${newLang}${location.pathname.slice(3)}`
-    navigate(newPathname)
+    changeLanguage(newLang)
   }
-  useEffect(() => {
-    i18n.changeLanguage(currentLang)
-  }, [i18n])
   const imageProps = {
     src: '/logo.png',
     alt: 'logo',
@@ -47,24 +40,24 @@ export default function Nav() {
     height: '50',
   }
 
-  const isHomePage = /^\/(ar|en)?\/?$/.test(location.pathname);
+  const isHomePage = /^\/(ar|en)?\/?$/.test(location.pathname)
 
-   const isActiveLink = (link) => {
-    const pathWithoutLang = location.pathname.replace(/^\/(ar|en)/, '');
+  const isActiveLink = (link) => {
+    const pathWithoutLang = location.pathname.replace(/^\/(ar|en)/, '')
     if (link === '/') {
-      return pathWithoutLang === '/';
+      return pathWithoutLang === '/'
     }
-    return pathWithoutLang.startsWith(link);
-  };
+    return pathWithoutLang.startsWith(link)
+  }
   const transparent = scrolled ? 'white-bg' : 'transparent shadow-none'
   return (
     <nav
-    className={`navbar nav-bar position-fixed w-100 navbar-expand-lg shadow navbar-light py-0 px-4 rounded-bottom-1 navbar-custom ${
-      isHomePage ? transparent: 'white-bg'
-    }`}
-    style={{ zIndex: '999', height: '70px', top: 0 }}
-    role="navigation"
-    aria-label="Main Navigation"
+      className={`navbar nav-bar position-fixed w-100 navbar-expand-lg shadow navbar-light py-0 px-4 rounded-bottom-1 navbar-custom ${
+        isHomePage ? transparent : 'white-bg'
+      }`}
+      style={{ zIndex: '999', height: '70px', top: 0 }}
+      role="navigation"
+      aria-label="Main Navigation"
     >
       <Link
         to="/"
@@ -99,28 +92,46 @@ export default function Nav() {
       </div>
 
       <div className="collapse navbar-collapse p-2" id="navbarCollapse">
-       
         <div className="navbar-nav ms-auto">
-        <Link to="/" className={`nav-item nav-link ${isActiveLink('/') ? 'active' : ''}`} aria-current="page">
+          <Link
+            to="/"
+            className={`nav-item nav-link ${isActiveLink('/') ? 'active' : ''}`}
+            aria-current="page"
+          >
             {t('Nav.home')}
           </Link>
-          <Link to="/developers" className={`nav-item nav-link ${isActiveLink('/developers') ? 'active' : ''}`}>
+          <Link
+            to="/developers"
+            className={`nav-item nav-link ${isActiveLink('/developers') ? 'active' : ''}`}
+          >
             {t('Nav.developer')}
           </Link>
-          <Link to="/about-us" className={`nav-item nav-link ${isActiveLink('/about-us') ? 'active' : ''}`}>
+          <Link
+            to="/about-us"
+            className={`nav-item nav-link ${isActiveLink('/about-us') ? 'active' : ''}`}
+          >
             {t('Nav.about')}
           </Link>
-          <Link to="/contact-us" className={`nav-item nav-link ${isActiveLink('/contact-us') ? 'active' : ''}`}>
+          <Link
+            to="/contact-us"
+            className={`nav-item nav-link ${isActiveLink('/contact-us') ? 'active' : ''}`}
+          >
             {t('Nav.contact')}
           </Link>
-          <Link to="/our-partners" className={`nav-item nav-link ${isActiveLink('/our-partners') ? 'active' : ''}`}>
+          <Link
+            to="/our-partners"
+            className={`nav-item nav-link ${isActiveLink('/our-partners') ? 'active' : ''}`}
+          >
             {t('Nav.ourPartners')}
           </Link>
-          <Link to="/academy" className={`nav-item nav-link ${isActiveLink('/academy') ? 'active' : ''}`}>
+          <Link
+            to="/academy"
+            className={`nav-item nav-link ${isActiveLink('/academy') ? 'active' : ''}`}
+          >
             {t('Nav.academy')}
           </Link>
         </div>
-       
+
         <div className="d-flex flex-column flex-md-row justify-content-start align-items-start gap-1">
           <Link to="/sell-property">
             <button className="btn button-primary mb-0">

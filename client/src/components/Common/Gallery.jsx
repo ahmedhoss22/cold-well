@@ -49,7 +49,7 @@ const Gallery = React.memo(({ property }) => {
   }
 
   const onSubmit = useCallback((data) => {
-    console.log(data)
+
   }, [])
   const imagesToShow = property?.images || []
   return (

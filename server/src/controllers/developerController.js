@@ -6,8 +6,8 @@ const asyncHandler = require("../utils/asyncHandler");
 const dbService = require("../utils/dbService");
 const { deleteImages, updateAndSet, uploadImages } = require("../utils/upload");
 exports.getDeveloperNames = asyncHandler(async (req, res) => {
-  const developers = await dbService.findMany(developerModel,{});
-  
+  const developers = await dbService.findMany(developerModel, {});
+
   const formattedDevelopers = developers.map((developer) => ({
     _id: developer._id,
     name: {
@@ -22,11 +22,11 @@ exports.createDeveloper = asyncHandler(async (req, res) => {
   const data = { ...req.body };
   const newDeveloper = await dbService.create(developerModel, data);
 
-  const areaId= req.body.area
+  const areaId = req.body.area;
   const updateData = { $push: { developers: newDeveloper._id } };
-  const getArea = await dbService.findOne(areaModel,{_id: areaId})
- await dbService.updateOne(areaModel,{_id:getArea._id},updateData)
-  return res.success({data:newDeveloper});
+  const getArea = await dbService.findOne(areaModel, { _id: areaId });
+  await dbService.updateOne(areaModel, { _id: getArea._id }, updateData);
+  return res.success({ data: newDeveloper });
 });
 exports.updateDeveloper = asyncHandler(async (req, res) => {
   const developer = await dbService.findOne(developerModel, {
@@ -38,7 +38,7 @@ exports.updateDeveloper = asyncHandler(async (req, res) => {
   if (req.files.images?.length > 0) {
     await updateAndSet(developer, "images", req);
   }
-  
+
   const updatedDeveloper = await dbService.updateOne(
     developerModel,
     { _id: req.params.developerId },
@@ -54,8 +54,12 @@ exports.getDeveloper = asyncHandler(async (req, res) => {
   if (!developer) {
     return res.recordNotFound({ message: " this developer not founded..." });
   }
-  const properties= await dbService.findMany(propertyModel,{developer:developer._id})
-  const compounds= await dbService.findMany(compoundModel,{developer:developer._id})
+  const properties = await dbService.findMany(propertyModel, {
+    developer: developer._id,
+  });
+  const compounds = await dbService.findMany(compoundModel, {
+    developer: developer._id,
+  });
   // const properties= await dbService.findMany(lunch,{developer:developer._id})
   const pricesStartFrom = await developerModel.aggregate([
     {
@@ -83,13 +87,16 @@ exports.getDeveloper = asyncHandler(async (req, res) => {
         _id: 0,
         min_price: 1,
       },
-    }, 
+    },
   ]);
-  console.log(pricesStartFrom);
-  return res.success({ data: {developer,properties,compounds , pricesStartFrom} });
+  return res.success({
+    data: { developer, properties, compounds, pricesStartFrom },
+  });
 });
 exports.getAllDevelopers = asyncHandler(async (req, res) => {
-  const developers = await dbService.findMany(developerModel);
+  const developers = await dbService.findMany(developerModel, {
+    properties: { $exists: true, $not: { $size: 0 } },
+  });
   return res.success({ data: developers });
 });
 exports.deleteDeveloper = asyncHandler(async (req, res) => {

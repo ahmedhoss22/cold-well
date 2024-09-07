@@ -23,7 +23,7 @@ export default function CompoundDetails() {
   const [recommendations, setRecommendations] = useState()
   const fetchData =async()=>{
      const data = await FetchCompound(id)
-      console.log(data);
+   
       setCompound(data.compound)
       setDetails(data.compoundPropertiesInfo)
       setRecommendations(data.recommendations)
@@ -34,7 +34,7 @@ export default function CompoundDetails() {
   const developerImage = `${import.meta.env.VITE_IMAGE_ORIGIN}/${compound?.developer[0]?.images[0]?.url}`
   const compoundDescription = compound?.description[i18n.language]
   const locations = details[0]?.allPropertyLocations
-console.log(compound);
+
   return (
     <React.Fragment>
       <Seo
@@ -47,7 +47,7 @@ console.log(compound);
           <div className="row">
             <div className="col-md-12 d-flex flex-column justify-content-center flex-md-row mx-auto">
               <div className="col-md-1 d-flex justify-content-md-center align-items-center ">
-                <Link to={`/developer-details/${compound?.developer[0]?._id}`}>
+                <Link to={`developer-details/${compound?.developer[0]?._id}`}>
                   <Img
                     image={{
                       src: developerImage,

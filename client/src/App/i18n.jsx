@@ -1,32 +1,32 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import HttpApi from 'i18next-http-backend';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
+import HttpApi from 'i18next-http-backend'
+import LanguageDetector from 'i18next-browser-languagedetector'
 
-const fallbackLng ="en"
+const fallbackLng = 'en'
+
 i18n
-  .use(HttpApi) 
-  .use(LanguageDetector) 
+  .use(HttpApi)
+  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     supportedLngs: ['en', 'ar'],
-    fallbackLng, 
-
-    // debug: process.env.NODE_ENV === 'development',
+    fallbackLng,
     detection: {
-      order: ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag'],
-      caches: ['cookie'],
-      lookupQuerystring: 'lang' 
+      order: ['path', 'querystring', 'navigator', 'htmlTag'],
+      lookupFromPathIndex: 0,
+      caches: ['localStorage'],
+      cleanPathOnAlreadyLoadedLangs: true,
     },
     backend: {
-      loadPath: '/locales/{{lng}}/translation.json', 
+      loadPath: '/locales/{{lng}}/translation.json',
     },
     react: {
-      useSuspense: true, 
+      useSuspense: true,
     },
     interpolation: {
-      escapeValue: false, 
+      escapeValue: false,
     },
-  });
+  })
 
-export default i18n;
+export default i18n

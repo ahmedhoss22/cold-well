@@ -9,6 +9,7 @@ import { formatNumber } from '../../assets/common'
 import Img from '../Img'
 import { FaWhatsapp } from 'react-icons/fa'
 import { Button } from 'react-bootstrap'
+import { Whatsapp } from '../Common/Buttons'
 
 const Property = ({ item }) => {
   const { t, i18n } = useTranslation()
@@ -99,69 +100,77 @@ const Property = ({ item }) => {
     }
   }
 
+  const baseText = `Hello ${developer.name[i18n.language]}! I'm interested in your property ${item.name[i18n.language]}. `
+  const encodedBaseText = encodeURIComponent(baseText)
+  const whatsappLink = `https://wa.me/${item?.contactUs}?text=${encodedBaseText} with reference_No:   ${item?.reference_No}`
+
   return (
     <div className="custom-property-unit bg-white rounded-2" dir={i18n.dir()}>
-      <Link to={`/property-details/${item._id}`}>
-        <div className="custom-property-image position-relative">
-          <div
-            className="z-3 p-2 position-absolute top-0 w-100 start-0 d-flex justify-content-end"
-            style={{ borderRadius: '10px' }}
-          >
-            <div className="position-relative w-100">
-              {item.featured && (
-                <span className="custom-type position-absolute top-0 start-0 custom-type-featured p-1 rounded-4">
-                  {t('featured')}
-                </span>
-              )}
-              {saleStatus && (
-                <span className="custom-type position-absolute top-0 end-0 custom-type-sale p-1 rounded-4">
-                  {saleStatus}
-                </span>
-              )}
-            </div>
+      <Link
+        to={`property-details/${item._id}`}
+        className="custom-property-image position-relative"
+        style={{ cursor: 'pointer' }}
+      >
+        <div
+          className="z-3 p-2 position-absolute top-0 w-100 start-0 d-flex justify-content-end"
+          style={{ borderRadius: '10px' }}
+        >
+          <div className="position-relative w-100">
+            {item.featured && (
+              <span className="custom-type position-absolute top-0 start-0 custom-type-featured p-1 rounded-4">
+                {t('featured')}
+              </span>
+            )}
+            {saleStatus && (
+              <span className="custom-type position-absolute top-0 end-0 custom-type-sale p-1 rounded-4">
+                {saleStatus}
+              </span>
+            )}
           </div>
-          <Img className="custom-property-thumbnail" image={itemImageProps} />
-          {developer && (
-            <span className="position-absolute custom-developer-logo border-0">
-              <Link to={`/developer-details/${developer?._id}`}>
-                <Img
-                  className="w-100 h-100 rounded-circle border-0"
-                  image={developerImageProps}
-                  // scrollPosition={scrollPosition}
-                />
-              </Link>
-            </span>
-          )}
         </div>
-        <div className="custom-property-unit-information-wrapper p-2">
-          <p className="custom-property-unit_description mb-1">
-            <MapPin size={16} /> {areaTitle}, {locality}
-          </p>
-          <div
-            className="custom-property-unit_name"
-            to={`/property-details/${item._id}`}
-          >
-            <h3>{firstTwoWords}</h3>
+        <Img className="custom-property-thumbnail" image={itemImageProps} />
+        {developer && (
+          <span className="position-absolute custom-developer-logo border-0">
+            <Link to={`developer-details/${developer?._id}`}>
+              <Img
+                className="w-100 h-100 rounded-circle border-0"
+                image={developerImageProps}
+                // scrollPosition={scrollPosition}
+              />
+            </Link>
+          </span>
+        )}
+      </Link>
+      <div className="custom-property-unit-information-wrapper p-2">
+        <p className="custom-property-unit_description mb-1">
+          <MapPin size={16} /> {areaTitle}, {locality}
+        </p>
+        <Link
+          className="custom-property-unit_name"
+          to={`/property-details/${item._id}`}
+        >
+          <h3>{firstTwoWords}</h3>
+        </Link>
+        <h2 className="custom-property-unit_price mb-1 text-secondary-blue">
+          {formattedPrice} {t('egp')}
+        </h2>
+        <div className="  d-flex justify-content-between align-items-center">
+          <div className="d-flex justify-content-start gap-4 py-1">
+            <span className="d-flex justify-content-center align-items-center gap-2 text-primary-blue">
+              <BathRoom />
+              {item.number_of_bathrooms}
+            </span>
+            <span className="d-flex justify-content-center align-items-center gap-2 text-primary-blue">
+              <BedRoom size="16" />
+              {item.number_of_bedrooms}
+            </span>
+            <span className="d-flex justify-content-center align-items-center gap-2 text-primary-blue">
+              <Ft />
+              {item.max_unit_area}m²
+            </span>
           </div>
-          <h2 className="custom-property-unit_price mb-1 text-secondary-blue">
-            {formattedPrice} {t('egp')}
-          </h2>
-          <div className=" d-flex justify-content-between align-items-center">
-            <div className="d-flex justify-content-start gap-4 py-1">
-              <span className="d-flex justify-content-center align-items-center gap-2 text-primary-blue">
-                <BathRoom />
-                {item.number_of_bathrooms}
-              </span>
-              <span className="d-flex justify-content-center align-items-center gap-2 text-primary-blue">
-                <BedRoom size="16" />
-                {item.number_of_bedrooms}
-              </span>
-              <span className="d-flex justify-content-center align-items-center gap-2 text-primary-blue">
-                <Ft />
-                {item.max_unit_area}m²
-              </span>
-            </div>
-            <div className=" d-flex justify-content-center align-items-center gap-2">
+          <div className="  d-flex justify-content-center align-items-center gap-2 ">
+            <a href={whatsappLink} target="_blank">
               <Button
                 title="whatsapp"
                 className=" d-flex justify-content-center align-items-center rounded-circle border-0 "
@@ -169,28 +178,29 @@ const Property = ({ item }) => {
                   backgroundColor: 'rgb(76, 217, 100)',
                   width: '45px',
                   height: '45px',
+                  zIndex: '99999999999',
                 }}
               >
                 <FaWhatsapp size={24} color="#fff" />
               </Button>
-              <Button
-                onClick={handleCompare}
-                title="compare"
-                className=" d-flex justify-content-center align-items-center border-0 rounded-circle"
-                style={{
-                  backgroundColor: isSelectedForComparison
-                    ? '#418fde'
-                    : '#01216a',
-                  width: '45px',
-                  height: '45px',
-                }}
-              >
-                <img width={24} height={20} src="/compare.png" alt="compare" />
-              </Button>
-            </div>
+            </a>
+            <Button
+              onClick={handleCompare}
+              title="compare"
+              className=" d-flex justify-content-center align-items-center border-0 rounded-circle"
+              style={{
+                backgroundColor: isSelectedForComparison
+                  ? '#418fde'
+                  : '#01216a',
+                width: '45px',
+                height: '45px',
+              }}
+            >
+              <img width={24} height={20} src="/compare.png" alt="compare" />
+            </Button>
           </div>
         </div>
-      </Link>
+      </div>
     </div>
   )
 }

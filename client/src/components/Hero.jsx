@@ -4,16 +4,14 @@ import { useForm } from 'react-hook-form'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import { FetchAllTypesNames, FetchAllCompoundsNames } from '../Api/ApiCalls'
 import { useNavigate } from 'react-router-dom'
-// import Img from './Img'
 import { getFirstTwoWords } from '../assets/common'
 const Hero = React.memo(() => {
   const { t, i18n } = useTranslation()
   const { register, handleSubmit } = useForm()
-  const videoRef = useRef(null);
+  const videoRef = useRef(null)
   const [compounds, setCompounds] = useState(null)
   const [types, setTypes] = useState(null)
   const [error, setError] = useState(null)
-
   const fetchData = useCallback(async () => {
     try {
       const [compoundsData, typesData] = await Promise.all([
@@ -31,13 +29,14 @@ const Hero = React.memo(() => {
   useEffect(() => {
     fetchData()
     if (videoRef.current) {
-      videoRef.current.playbackRate = .5; 
+      videoRef.current.playbackRate = 0.5
     }
   }, [fetchData])
-
   const navigate = useNavigate()
   const onSubmit = async (data) => {
-    navigate('/search-results', { state: { searchParams: data } })
+    navigate(
+      `/${i18n.language}/search-results?compound=${data.compound}&type=${data.type}&beds=${data.beds}&price=${data.price}`
+    )
   }
 
   // const imageProps = {
@@ -58,24 +57,25 @@ const Hero = React.memo(() => {
   return (
     <section
       className="w-100 overflow-hidden position-relative bg-white"
-      style={{ height: '750px' ,marginTop:"-70px" }}
+      style={{ height: '750px', marginTop: '-70px' }}
     >
-
-       <video
-       ref={videoRef}
-       width="100%"
-       height="750"
-       playsInline
-       autoPlay
-       muted
-       loop
-       preload="auto"
-       poster="/path-to-poster-image.jpg"
-      className="lazy-background-hero bg-white"
-    >
-      <source src="/Untitled video - Made with Clipchamp (1).mp4" type="video/mp4" />
-      <track kind="captions" srcLang="en" label="English captions" />
-    </video>
+      <video
+        ref={videoRef}
+        width="100%"
+        height="750"
+        playsInline
+        autoPlay
+        muted
+        loop
+        preload="auto"
+        className="lazy-background-hero bg-white"
+      >
+        <source
+          src="/Untitled video - Made with Clipchamp (1).mp4"
+          type="video/mp4"
+        />
+        <track kind="captions" srcLang="en" label="English captions" />
+      </video>
 
       <div className="hero-overlay"></div>
       <div className="hero-content position-absolute top-50 start-50 translate-middle w-75 z-3">

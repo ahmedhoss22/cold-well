@@ -183,7 +183,6 @@ export default function CreateProperty() {
         isLoading: false,
         autoClose: 1000,
       })
-      console.log('Form submission response:', response.data)
     } catch (error) {
       toast.update(loadingToastId, {
         render: 'Failed to submit. Please try again.',

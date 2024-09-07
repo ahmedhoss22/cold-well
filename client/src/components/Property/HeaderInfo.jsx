@@ -8,7 +8,7 @@ import Img from '../Img'
 
 const DeveloperImage = ({ developerId, developerImage }) => (
   <div className="col-md-1 d-flex justify-content-md-center align-items-center">
-    <Link to={`/developer-details/${developerId}`}>
+    <Link to={`developer-details/${developerId}`}>
       <Img
         image={{
           src: developerImage,

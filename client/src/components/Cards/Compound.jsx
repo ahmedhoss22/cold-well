@@ -41,7 +41,7 @@ const Compound = ({ item }) => {
         <div className="custom-compound-image position-relative">
           <Link
             className="custom-compound-unit_name"
-            to={`/compound-details/${item._id}`}
+            to={`compound-details/${item._id}`}
           >
             <Img
               className="object-fit-cover"
@@ -51,7 +51,7 @@ const Compound = ({ item }) => {
 
           {item.developer && (
             <span className="position-absolute custom-developer-logo">
-              <Link to={`/developer-details/${item.developer[0]._id}`}>
+              <Link to={`developer-details/${item.developer[0]._id}`}>
                 <Img
                   className="w-100 h-100 rounded-circle"
                   image={developerImageProps}
@@ -63,7 +63,7 @@ const Compound = ({ item }) => {
         <div className="custom-compound-unit-information-wrapper p-2">
           <Link
             className="custom-compound-unit_name"
-            to={`/compound-details/${item._id}`}
+            to={`compound-details/${item._id}`}
           >
             <h2 className="compound-title mb-1">{firstTwoWords}</h2>
           </Link>

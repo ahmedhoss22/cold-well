@@ -47,7 +47,7 @@ const TopAreas = React.memo(() => {
               return (
                 <div className="col-md-3" key={index + 1}>
                   <Link
-                    to={`/area-details/${area._id}`}
+                    to={`area-details/${area._id}`}
                     className="area-card px-2 py-5 border rounded-2 d-flex flex-column gap-2 align-items-center justify-content-center mb-2"
                   >
                     <Img

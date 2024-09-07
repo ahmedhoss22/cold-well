@@ -18,7 +18,7 @@ const PrivateRoute = ({ element }) => {
   
         if (res.data) setIsAuthenticated(true);
       } catch (err) {
-        console.error(err);
+       
         localStorage.removeItem('token');
       }
     }

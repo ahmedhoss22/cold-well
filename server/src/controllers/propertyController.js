@@ -6,6 +6,7 @@ const asyncHandler = require("../utils/asyncHandler");
 const dbService = require("../utils/dbService");
 const { uploadImages } = require("../utils/upload");
 exports.Search = asyncHandler(async (req, res) => {
+  console.log(req.query)
   const { compound, type, beds, price } = req.query;
 
   const query = {};
@@ -141,7 +142,7 @@ exports.compare = asyncHandler(async (req, res) => {
 });
 
 exports.getAllProperties = asyncHandler(async (req, res) => {
-  const properties = await dbService.findMany(propertyModel, {});
+  const properties = await dbService.findMany(propertyModel, {}, {},20);
   return res.success({ data: properties });
 });
 exports.deleteProperty = asyncHandler(async (req, res) => {

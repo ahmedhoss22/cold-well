@@ -97,7 +97,7 @@ export default function LunchDetails() {
             style={{ marginTop: '32px' }}
           >
             <div className="col-md-2  mb-2 d-flex justify-content-start justify-content-md-end align-items-center">
-              <Link to={`/developer-details/${launch?.developer._id}`}>
+              <Link to={`developer-details/${launch?.developer._id}`}>
                 <img
                   src={developerImage}
                   className="shadow-img rounded-circle"

@@ -7,7 +7,7 @@ import SpecialOffers from '../pages/SpecialOffers'
 import DashboardLayout from '../layouts/DashboardLayout'
 import Login from '../pages/Admin/Login'
 import CookiesProvider from '../Services/CookiesProvider'
-import { 
+import {
   CreateDeveloper,
   CreateArea,
   CreateCompound,
@@ -33,10 +33,10 @@ import {
   CreateOffer,
   UpdateOffer,
   ShowAllOffers,
-
- } from '../pages/Admin'
+} from '../pages/Admin'
 
 import SahelMap from '../pages/SahelMap'
+import { useLanguageRoute } from './changeLang'
 
 const Home = React.lazy(() => delay(import('../pages/Home')))
 const Developers = React.lazy(() => delay(import('../pages/Developers')))
@@ -62,28 +62,28 @@ const ProjectRoutes = () => {
   const isAuthenticated = CookiesProvider.get('cd-token')
 
   const { i18n } = useTranslation()
-  const location = useLocation()
-  const navigate = useNavigate()
+  // const location = useLocation()
+  // const navigate = useNavigate()
+  useLanguageRoute();
+  // React.useEffect(() => {
+  //   const pathSegments = location.pathname.split('/');
+  //   const firstSegment = pathSegments[1];
 
-  React.useEffect(() => {
-    const pathSegments = location.pathname.split('/')
-    const firstSegment = pathSegments[1]
+  //   if (firstSegment === 'admin') {
+  //     i18n.changeLanguage('en');
+  //     return;
+  //   }
 
-    // Skip language handling for admin routes
-    if (firstSegment === 'admin') {
-      i18n.changeLanguage("en")
-      return
-    }
+  //   if (!['en', 'ar'].includes(firstSegment)) {
+  //     navigate(`/${i18n.language}${location.pathname}`, { replace: true });
+  //   } else {
+  //     i18n.changeLanguage(firstSegment);
+  //     const direction = firstSegment === 'ar' ? 'rtl' : 'ltr';
+  //     document.documentElement.setAttribute('dir', direction);
+  //     document.documentElement.setAttribute('lang', firstSegment);
+  //   }
+  // }, [location.pathname, i18n, navigate]);
 
-    if (!['en', 'ar'].includes(firstSegment)) {
-      navigate(`/${i18n.language}${location.pathname}`, { replace: true })
-    } else {
-      i18n.changeLanguage(firstSegment)
-      const direction = firstSegment === 'ar' ? 'rtl' : 'ltr'
-      document.documentElement.setAttribute('dir', direction)
-      document.documentElement.setAttribute('lang', firstSegment)
-    }
-  }, [location, i18n, navigate])
   const element = useRoutes([
     { path: '/admin/login', element: <Login /> },
     {
@@ -115,42 +115,41 @@ const ProjectRoutes = () => {
       children: [
         { index: true, element: <CreateArea /> },
         // Area
-        { index:true, path: "create-area", element: <CreateArea /> },
-        { path: "update-area/:id", element: <UpdateArea /> },
-        { path: "show-all-areas", element: <ShowAllAreas /> },
+        { index: true, path: 'create-area', element: <CreateArea /> },
+        { path: 'update-area/:id', element: <UpdateArea /> },
+        { path: 'show-all-areas', element: <ShowAllAreas /> },
         // Compound
-        { path: "create-compound", element: <CreateCompound /> },
-        { path: "update-compound/:id", element: <UpdateCompound /> },
-        { path: "show-all-compounds", element: <ShowAllCompounds /> },
+        { path: 'create-compound', element: <CreateCompound /> },
+        { path: 'update-compound/:id', element: <UpdateCompound /> },
+        { path: 'show-all-compounds', element: <ShowAllCompounds /> },
         //  Developer
-        { path: "create-developer", element: <CreateDeveloper /> },
-        { path: "update-developer/:id", element: <UpdateDeveloper /> },
-        { path: "show-all-developers", element: <ShowAllDevelopers /> },
+        { path: 'create-developer', element: <CreateDeveloper /> },
+        { path: 'update-developer/:id', element: <UpdateDeveloper /> },
+        { path: 'show-all-developers', element: <ShowAllDevelopers /> },
         //  Types
-        { path: "create-type", element: <CreateType /> },
-        { path: "update-type/:id", element: <UpdateType /> },
-        { path: "show-all-types", element: <ShowAllTypes /> },
+        { path: 'create-type', element: <CreateType /> },
+        { path: 'update-type/:id', element: <UpdateType /> },
+        { path: 'show-all-types', element: <ShowAllTypes /> },
         // Properties
-        { path: "create-property", element: <CreateProperty /> },
-        { path: "update-property/:id", element: <UpdateProperty /> },
-        { path: "show-all-properties", element: <ShowAllProperties /> },
+        { path: 'create-property', element: <CreateProperty /> },
+        { path: 'update-property/:id', element: <UpdateProperty /> },
+        { path: 'show-all-properties', element: <ShowAllProperties /> },
         //  Launches
-        { path: "create-launch", element: <CreateLaunch /> },
-        { path: "update-launch/:id", element: <UpdateLaunch /> },
-        { path: "show-all-launches", element: <ShowAllLaunches /> },
+        { path: 'create-launch', element: <CreateLaunch /> },
+        { path: 'update-launch/:id', element: <UpdateLaunch /> },
+        { path: 'show-all-launches', element: <ShowAllLaunches /> },
         // Requests
-        { path: "academy-requests", element: <AcademyRequests /> },
-        { path: "contact-requests", element: <ContactRequests /> },
-        { path: "sell-requests", element: <SellPropertyRequests /> },
-        { path: "property-requests", element: <PropertyContactRequests /> },
+        { path: 'academy-requests', element: <AcademyRequests /> },
+        { path: 'contact-requests', element: <ContactRequests /> },
+        { path: 'sell-requests', element: <SellPropertyRequests /> },
+        { path: 'property-requests', element: <PropertyContactRequests /> },
         // Offers
-        { path: "create-offer", element: <CreateOffer /> },
-        { path: "update-offer/:id", element: <UpdateOffer /> },
-        { path: "show-all-offers", element: <ShowAllOffers /> },
+        { path: 'create-offer', element: <CreateOffer /> },
+        { path: 'update-offer/:id', element: <UpdateOffer /> },
+        { path: 'show-all-offers', element: <ShowAllOffers /> },
       ],
       // children: [],
     },
- 
 
     { path: '*', element: <Navigate to={`/${i18n.language}`} /> },
   ])

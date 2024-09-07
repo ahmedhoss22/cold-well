@@ -101,7 +101,7 @@ const LatestProperties = React.memo(({ t, latestProperties }) => (
       {latestProperties?.slice(0, 4)?.map((item, index) => {
         const itemImage = `${import.meta.env.VITE_IMAGE_ORIGIN}/${item?.thumbnail[0].url}`;
         return (
-          <Link to={`/property-details/${item._id}`} className="rounded-2" key={item._id}>
+          <Link to={`property-details/${item._id}`} className="rounded-2" key={item._id}>
             <Img
               image={{ width: '150', height: '100', src: itemImage, alt: index+1 }}
               className="rounded-2 object-fit-cover"
