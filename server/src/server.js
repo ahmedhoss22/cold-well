@@ -6,7 +6,7 @@ process.on('uncaughtException', err => {
 });
 const app = require("./config/app");
 require("./config/database");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 
 let server= app.listen(PORT, () => {

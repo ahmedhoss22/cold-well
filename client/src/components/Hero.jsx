@@ -71,7 +71,7 @@ const Hero = React.memo(() => {
         className="lazy-background-hero bg-white"
       >
         <source
-          src="/Untitled video - Made with Clipchamp (1).mp4"
+          src="/hero.mp4"
           type="video/mp4"
         />
         <track kind="captions" srcLang="en" label="English captions" />

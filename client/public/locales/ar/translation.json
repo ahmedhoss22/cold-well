@@ -161,7 +161,7 @@
     "propertiesAvailable": " وحدات متاحة",
     "exploreUnits": "اكتشف وحدات",
     "newLaunches": "المشاريع الجديدة",
-    "topCompounds": "الكمبوندات الأكثر بحثًا",
+    "topCompounds": "الكمبوندات الأكثر بحثً",
     "topAreas": "أهم المناطق",
     "recommended": "نرشح لك",
     "showAll": "عرض الكل",
@@ -183,7 +183,7 @@
     "send": "ارسال"
   },
   "compoundDetails": {
-    "topCompound": "الكمبوندات الأكثر بحثًا"
+    "topCompound": "الكمبوندات الأكثر بحثا"
   },
   "aboutUs": {
     "topSalers": "أعلى البائعين",
@@ -279,7 +279,7 @@
   "findHome": "اعثر على منزل",
   "findHomeText": "نوفر لك أكثر من 200 مشروع عقاري التي تلبي احتياجات السوق المختلفة ...",
   "sellYourHomeText": "نحن نساعدك على بيع عقار أو شراء منزل في مجتمعك المفضل ...",
-  "topArea": "أهم المناطق",
+  "topArea": "أكثر المناطق بحثا",
   "Footer": {
     "getInTouch": "تواصل معنا",
     "address": "جرين بلازا بجوار مطعم ابوراوية، مصر",

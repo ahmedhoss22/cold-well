@@ -17,7 +17,7 @@ const AboutUs = () => {
     '/top-sales/top-sales-2.jpg',
     '/top-sales/top-sales-3.jpg',
     '/top-sales/top-sales-4.jpg',
-    '/top-sales/top-sales-5.jpg',
+    // '/top-sales/top-sales-5.jpg',
   ];
 
   const carouselSettings = {
