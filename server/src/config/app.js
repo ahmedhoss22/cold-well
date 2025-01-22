@@ -8,17 +8,22 @@ const routes = require("../routes");
 let logger = require("morgan");
 
 const cookieParser = require("cookie-parser");
-const path =require("path");
+const path = require("path");
+const { corsOptions, mongoSanitizeOptions, } = require("./options");
 
-const {
-  corsOptions,
-  mongoSanitizeOptions,} = require("./options");
-global.__basedir = path.resolve(__dirname, '..');
-
-app.use(require("../utils/response/responseHandler"));
 
 app.use(cors(corsOptions));
+// app.options('*', cors(corsOptions));
+
+global.__basedir = path.resolve(__dirname, '..');
+app.use(require("../utils/response/responseHandler"));
+
+app.use((req, res, next) => {
+  console.log('Origin:', req.headers.origin);
+  next();
+});
 app.use(compression());
+
 app.use(logger("dev"));
 
 app.use(cookieParser());
@@ -29,7 +34,7 @@ app.use("/cold-well/v1", routes);
 app.use('/uploads', express.static(path.join(__basedir, 'uploads')));
 
 app.use("*", (req, res) => {
-  return res.recordNotFound({message:`Cant't find route method:${req.method} url:${req.originalUrl}`});
+  return res.recordNotFound({ message: `Cant't find route method:${req.method} url:${req.originalUrl}` });
 });
 
 module.exports = app;

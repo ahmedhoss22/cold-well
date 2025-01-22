@@ -1,6 +1,6 @@
 module.exports = {
     corsOptions: {
-      origin: ["http://localhost:3001","http://localhost:3000"],
+      origin: "https://cb-newalex.com",
       credentials: true,
       methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
       preflightContinue: false,
@@ -10,7 +10,7 @@ module.exports = {
     helmetOptions: {
       crossOriginEmbedderPolicy: false, 
       crossOriginResourcePolicy: {
-        allowOrigins: ["http://localhost:3001","http://localhost:3000"],
+        // allowOrigins: ["https://cb-newalex.com"],
       },
       contentSecurityPolicy: {
         directives: {
