@@ -54,6 +54,7 @@ const AreaDetails = React.lazy(() => delay(import('../pages/AreaDetails')))
 const SearchResults = React.lazy(() => delay(import('../pages/SearchResults')))
 const Academy = React.lazy(() => delay(import('../pages/Academy')))
 const SellProperty = React.lazy(() => delay(import('../pages/SellProperty')))
+const Campaign = React.lazy(() => delay(import('../pages/Campaign')))
 const PropertyComparison = React.lazy(() =>
   delay(import('../pages/PropertyComparison'))
 )
@@ -85,7 +86,8 @@ const ProjectRoutes = () => {
   // }, [location.pathname, i18n, navigate]);
 
   const element = useRoutes([
-    { path: '/admin/login', element: <Login /> },
+    { path: '/en/campaign', element: <Campaign />,index: true }, 
+    { path: '/admin/login', element: <Login />,  },
     {
       path: '/:lng',
       element: <MainLayout />,
