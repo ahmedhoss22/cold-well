@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import "../styles/campaign.css"
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import logo from '../assets/Untitled-1-01.png'
+import logo from '../assets/logo.png'
 import building from '../assets/2-Photoroom.png'
 import Stack from 'react-bootstrap/Stack';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -40,10 +40,10 @@ const Campaign = () => {
   return (
     <div className='campaign-bg'>
       <Stack align="center" justify="center">
-        <Image src={logo} alt='logo' width={"250px"} height={"200px"} style={{ margin: "0 auto", transform: "translateY(-30px)" ,cursor:"pointer" }} onClick={handleClick}/>
+        <Image src={logo} alt='logo' width={"350px"} height={"120px"} style={{ margin: "0 auto", transform: "translateY(-30px)" ,cursor:"pointer" }} onClick={handleClick}/>
         <Stack align="center" justify="center" direction="horizontal" className="d-flex flex-column flex-md-row">
           <Row>
-            <Col xs={12} md={6} >
+            {/* <Col xs={12} md={6} >
               <Image
                 src={building}
                 alt="logo"
@@ -52,18 +52,19 @@ const Campaign = () => {
                 fluid
                 sx={{ width: "10%", height: "auto" }}
               />
-            </Col>
-            <Col xs={12} md={6}>
+            </Col> */}
+            <h3 style={{margin:"16px 0 100px",color:"#01216a"}}>Choose your unit</h3>
+            <Col xs={12} >
               <div className="campaign-container" style={{ flexGrow: 1 }}>
                 <Form onSubmit={handleSubmit}>
 
-                  <ButtonGroup className="mb-2">
+                  <ButtonGroup className="mb-2" style={{ width: "100%" }}>
                     <ToggleButton
                       id="toggle-apartment"
                       type="radio" // Change to radio because they are mutually exclusive
                       variant="primary"
                       checked={checked === "Appartment"}
-                      style={{ margin: "0 10px" }}
+                      style={{ margin: "0 5px",width:"50%",borderRadius:"8px" }}
                       value="Appartment"
                       onChange={(e) => handleToggle(e.currentTarget.value)}
                     >
@@ -74,6 +75,7 @@ const Campaign = () => {
                       type="radio" // Change to radio to pair with the other button
                       variant="primary"
                       checked={checked === "Villa"}
+                      style={{ width:"50%",borderRadius:"8px" }}
                       value="Villa"
                       onChange={(e) => handleToggle(e.currentTarget.value)}
                     >
@@ -81,16 +83,16 @@ const Campaign = () => {
                     </ToggleButton>
                   </ButtonGroup>
                   <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label style={{ color: "#fff" }}>Name</Form.Label>
+                    <Form.Label style={{ color: "#000" }}>Name</Form.Label>
                     <Form.Control value={name} onChange={(e) => setname(e.target.value)} type="text" placeholder="Name" required />
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label style={{ color: "#fff" }}>Phone Number</Form.Label>
+                    <Form.Label style={{ color: "#000" }}>Phone Number</Form.Label>
                     <Form.Control value={phone} onChange={(e) => setphone(e.target.value)} type="number" placeholder="Phone Number" required />
                   </Form.Group>
 
-                  <Button variant="primary" type="submit">
+                  <Button variant="primary" type="submit" style={{marginTop:"20px",width:"100%"}}>
                     Submit
                   </Button>
 
@@ -99,6 +101,12 @@ const Campaign = () => {
             </Col>
           </Row>
         </Stack>
+      <Stack direction='horizontal' className="d-flex flex-column flex-md-row" style={{marginTop:"50px"}}>
+        <div style={{margin:"20px 0"}}>
+          <h3>Address</h3>
+          14 May Road,Hilton st. Green Plaza<br/>, El maameron Plaza Muruj <br/>Smouha, Alexandria
+        </div>
+      </Stack>
       </Stack>
     </div>
   )
