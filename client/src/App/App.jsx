@@ -12,16 +12,21 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Toaster from '../components/Common/Toaster';
+import { HelmetProvider } from 'react-helmet-async';
+import GoogleTag from '../Services/GoogleTag';
 const ProjectRoutes = React.lazy(() => import("./Routes"));
 
 function App() {
   return (
-    <Router basename='/'>
-      <I18nextProvider i18n={i18n}>
-        <ProjectRoutes />
-        <Toaster />
-      </I18nextProvider>
-    </Router>
+    <HelmetProvider>
+      <GoogleTag/>
+      <Router basename='/'>
+        <I18nextProvider i18n={i18n}>
+          <ProjectRoutes />
+          <Toaster />
+        </I18nextProvider>
+      </Router>
+    </HelmetProvider>
   );
 }
 

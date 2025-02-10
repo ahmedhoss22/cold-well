@@ -1,6 +1,6 @@
 module.exports = {
     corsOptions: {
-      origin: "https://cb-newalex.com",
+      origin: ["https://cb-newalex.com","http://localhost:3000"],
       credentials: true,
       methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
       preflightContinue: false,
